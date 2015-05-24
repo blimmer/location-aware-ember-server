@@ -11,7 +11,7 @@
     "cheerio": "^0.19.0",
     "express": "~4.9.x",
     "geoip-lite": "^1.1.6",
-    "node-ember-cli-deploy": "git://github.com/blimmer/node-ember-cli-deploy.git#develop",
+    "node-ember-cli-deploy-redis": "0.0.1",
     "redis": "^0.12.1"
   },
   "engines": {

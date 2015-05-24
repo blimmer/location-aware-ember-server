@@ -10,7 +10,7 @@ client.auth(redisURL.auth.split(":")[1]);
 
 var EMBER_APP_NAME = 'location-aware-ember';
 var serverVarInjectHelper = require('./lib/server-var-inject-helper');
-var emberDeploy = require('node-ember-cli-deploy');
+var emberDeploy = require('node-ember-cli-deploy-redis');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
