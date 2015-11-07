@@ -8,7 +8,7 @@ var redisURL = url.parse(process.env.REDIS_URL);
 var client = redis.createClient(redisURL.port, redisURL.hostname);
 client.auth(redisURL.auth.split(":")[1]);
 
-var EMBER_APP_NAME = 'location-aware-ember';
+var EMBER_APP_NAME = 'location-aware-ember:index';
 var serverVarInjectHelper = require('./lib/server-var-inject-helper');
 var emberDeploy = require('node-ember-cli-deploy-redis');
 
