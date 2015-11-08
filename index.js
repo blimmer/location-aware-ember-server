@@ -1,22 +1,24 @@
 var express = require('express');
 var app = express();
 
-var redis = require('redis');
 var url = require('url');
 
 var redisURL = url.parse(process.env.REDIS_URL);
-var client = redis.createClient(redisURL.port, redisURL.hostname);
-client.auth(redisURL.auth.split(":")[1]);
 
 var EMBER_APP_NAME = 'location-aware-ember:index';
 var serverVarInjectHelper = require('./lib/server-var-inject-helper');
-var emberDeploy = require('node-ember-cli-deploy-redis');
+var fetchIndex = require('node-ember-cli-deploy-redis/fetch');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-    emberDeploy.fetchIndex(EMBER_APP_NAME, req, client).then(function (indexHtml) {
+  fetchIndex(req, EMBER_APP_NAME, {
+    host: redisURL.hostname,
+    port: redisURL.port,
+    password: redisURL.auth.split(":")[1],
+    database: 0
+  }).then(function(indexHtml) {
     indexHtml = serverVarInjectHelper.injectServerVariables(indexHtml, req);
     res.status(200).send(indexHtml);
   }).catch(function(err) {
